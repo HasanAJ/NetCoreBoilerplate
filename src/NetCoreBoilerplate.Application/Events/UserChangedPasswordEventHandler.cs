@@ -8,7 +8,7 @@ using NetCoreBoilerplate.Domain.Events.User;
 
 namespace NetCoreBoilerplate.Application.Events
 {
-    public class UserChangedPasswordEventHandler : INotificationHandler<DomainEventNotification<UserChangedPasswordEvent>>
+    public class UserChangedPasswordEventHandler : IEventHandler<DomainEventNotification<UserChangedPasswordEvent>>
     {
         private readonly IMailService _mailService;
 

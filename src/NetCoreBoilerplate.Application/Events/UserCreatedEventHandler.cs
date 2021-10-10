@@ -8,7 +8,7 @@ using NetCoreBoilerplate.Domain.Events.User;
 
 namespace NetCoreBoilerplate.Application.Events
 {
-    public class UserCreatedEventHandler : INotificationHandler<DomainEventNotification<UserCreatedEvent>>
+    public class UserCreatedEventHandler : IEventHandler<DomainEventNotification<UserCreatedEvent>>
     {
         private readonly IMailService _mailService;
 
