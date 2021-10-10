@@ -28,6 +28,7 @@ namespace NetCoreBoilerplate.Application.Events
                 Template = EmailTemplates.CHANGE_PASSWORD
             };
 
+            // TODO: implement a background job handler
             Task.Run(async () => await _mailService.Send(email));
 
             return Task.CompletedTask;
