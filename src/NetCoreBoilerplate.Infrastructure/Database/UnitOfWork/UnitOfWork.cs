@@ -18,16 +18,16 @@ namespace NetCoreBoilerplate.Infrastructure.Database.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
-        private readonly IMediator _domainEventService;
+        private readonly IMediator _mediator;
         private readonly IDateTime _dateTime;
         private Hashtable _repositories;
 
         public UnitOfWork(ApplicationDbContext db,
-            IMediator domainEventService,
+            IMediator mediator,
             IDateTime dateTime)
         {
             _db = db;
-            _domainEventService = domainEventService;
+            _mediator = mediator;
             _dateTime = dateTime;
         }
 
@@ -75,7 +75,7 @@ namespace NetCoreBoilerplate.Infrastructure.Database.UnitOfWork
 
             int result = await _db.SaveChangesAsync(ct);
 
-            await _domainEventService.PublishDomainEvents(_db);
+            await _mediator.PublishDomainEvents(_db);
 
             return result;
         }

@@ -8,7 +8,7 @@ namespace NetCoreBoilerplate.Infrastructure.Common.Extensions
 {
     public static class MediatorExtensions
     {
-        public static async Task PublishDomainEvents<T>(this IMediator domainEventService, T db) where T : ApplicationDbContext
+        public static async Task PublishDomainEvents<T>(this IMediator mediator, T db) where T : ApplicationDbContext
         {
             var domainEntities = db.ChangeTracker
                 .Entries<IHasDomainEvent>()
@@ -24,7 +24,7 @@ namespace NetCoreBoilerplate.Infrastructure.Common.Extensions
             var tasks = domainEvents
                 .Select(async (domainEvent) =>
                 {
-                    await domainEventService.Publish(domainEvent);
+                    await mediator.Publish(domainEvent);
                 });
 
             await Task.WhenAll(tasks);
