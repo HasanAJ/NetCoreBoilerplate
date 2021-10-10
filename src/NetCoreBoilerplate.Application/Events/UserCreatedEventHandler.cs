@@ -21,6 +21,7 @@ namespace NetCoreBoilerplate.Application.Events
         {
             var domainEvent = notification.DomainEvent;
 
+            // TODO: update template with link to confirm email
             var email = new Email<object>()
             {
                 To = domainEvent.Email,
