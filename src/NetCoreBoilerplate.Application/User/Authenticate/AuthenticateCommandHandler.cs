@@ -5,6 +5,7 @@ using NetCoreBoilerplate.Application.Common.Interfaces.Database;
 using NetCoreBoilerplate.Application.Common.Interfaces.Services;
 using NetCoreBoilerplate.Application.Common.Mediator;
 using NetCoreBoilerplate.Domain.Entities;
+using RefreshTokenEntity = NetCoreBoilerplate.Domain.Entities.RefreshToken;
 
 namespace NetCoreBoilerplate.Application.User.Authenticate
 {
@@ -42,7 +43,7 @@ namespace NetCoreBoilerplate.Application.User.Authenticate
             (string accessToken, int accessExpiriesIn) = _jwtService.GenerateAccessToken(user);
             (string refreshToken, int refreshExpiriesIn) = _jwtService.GenerateRefreshToken();
 
-            user.RefreshTokens.Add(new Domain.Entities.RefreshToken()
+            user.RefreshTokens.Add(new RefreshTokenEntity
             {
                 Token = refreshToken,
                 ExpiresOn = _dateTime.Now.AddDays(refreshExpiriesIn)
