@@ -12,8 +12,8 @@ namespace NetCoreBoilerplate.Application.Common.Exceptions
         {
         }
 
-        public NotFoundException(string name, object key)
-            : this($"Entity \"{name}\" ({key}) was not found.")
+        public NotFoundException(string name, string key)
+            : this($"Entity '{name}' ({key}) was not found.")
         {
         }
     }
