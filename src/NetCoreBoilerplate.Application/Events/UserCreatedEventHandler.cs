@@ -17,7 +17,7 @@ namespace NetCoreBoilerplate.Application.Events
             _mailService = mailService;
         }
 
-        public Task Handle(DomainEventNotification<UserCreatedEvent> notification, CancellationToken ct)
+        public Task Handle(DomainEventNotification<UserCreatedEvent> notification, CancellationToken ct = default(CancellationToken))
         {
             var domainEvent = notification.DomainEvent;
 
@@ -34,7 +34,7 @@ namespace NetCoreBoilerplate.Application.Events
             };
 
             // TODO: implement a background job handler
-            Task.Run(async () => await _mailService.Send(email));
+            Task.Run(async () => await _mailService.Send(email), ct);
 
             return Task.CompletedTask;
         }

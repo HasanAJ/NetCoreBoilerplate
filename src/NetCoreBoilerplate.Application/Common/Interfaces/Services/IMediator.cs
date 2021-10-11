@@ -7,9 +7,9 @@ namespace NetCoreBoilerplate.Application.Common.Interfaces.Services
 {
     public interface IMediator
     {
-        Task Send(IRequest request, CancellationToken ct);
+        Task Send(IRequest request, CancellationToken ct = default(CancellationToken));
 
-        Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken ct);
+        Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken ct = default(CancellationToken));
 
         Task Publish(DomainEvent domainEvent);
     }

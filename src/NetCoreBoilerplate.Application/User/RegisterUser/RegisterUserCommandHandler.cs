@@ -32,7 +32,7 @@ namespace NetCoreBoilerplate.Application.User.RegisterUser
         {
             var repo = _uow.GetRepository<Account>();
 
-            Account user = await repo.Find(i => i.Email == request.Email);
+            Account user = await repo.Find(i => i.Email == request.Email, ct: ct);
 
             if (user != null)
                 throw new DuplicateKeyException(nameof(Account), nameof(Account.Email));

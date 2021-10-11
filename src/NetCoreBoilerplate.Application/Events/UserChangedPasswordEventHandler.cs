@@ -29,7 +29,7 @@ namespace NetCoreBoilerplate.Application.Events
             };
 
             // TODO: implement a background job handler
-            Task.Run(async () => await _mailService.Send(email));
+            Task.Run(async () => await _mailService.Send(email), ct);
 
             return Task.CompletedTask;
         }

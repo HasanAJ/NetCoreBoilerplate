@@ -57,7 +57,7 @@ namespace NetCoreBoilerplate.Infrastructure.Database.UnitOfWork
             return _db.GetService<T>();
         }
 
-        public async Task<int> SaveChanges(CancellationToken ct)
+        public async Task<int> SaveChanges(CancellationToken ct = default(CancellationToken))
         {
             foreach (EntityEntry<Entity> entry in _db.ChangeTracker.Entries<Entity>())
             {

@@ -17,8 +17,8 @@ namespace NetCoreBoilerplate.Application.Common.Exceptions
         {
         }
 
-        public UnauthorizedException(string name, object key)
-            : this($"Entity \"{name}\" invalid key ({key}) was found")
+        public UnauthorizedException(string name, string key)
+            : this($"Entity '{name}' invalid key ({key}) was found")
         {
         }
     }

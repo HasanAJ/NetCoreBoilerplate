@@ -16,12 +16,12 @@ namespace NetCoreBoilerplate.Infrastructure.Services
             _mediator = mediator;
         }
 
-        public async Task Send(IRequest request, CancellationToken ct)
+        public async Task Send(IRequest request, CancellationToken ct = default(CancellationToken))
         {
             await _mediator.Send(request, ct);
         }
 
-        public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken ct)
+        public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken ct = default(CancellationToken))
         {
             return await _mediator.Send(request, ct);
         }

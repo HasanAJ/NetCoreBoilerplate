@@ -12,8 +12,8 @@ namespace NetCoreBoilerplate.Application.Common.Exceptions
         {
         }
 
-        public DuplicateKeyException(string name, object key)
-            : this($"Entity \"{name}\" duplicate key ({key}) was found")
+        public DuplicateKeyException(string name, string key)
+            : this($"Entity '{name}' duplicate key ({key}) was found")
         {
         }
     }

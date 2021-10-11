@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using NetCoreBoilerplate.Application.Common.Exceptions;
@@ -29,27 +30,25 @@ namespace NetCoreBoilerplate.Application.User.Authenticate
 
         public async Task<TokenResposeDto> Handle(AuthenticateCommand request, CancellationToken ct = default(CancellationToken))
         {
-            var repo = _uow.GetRepository<Account>();
+            var repo = _uow.GetCustomRepository<IAccountRepository>();
 
-            Account user = await repo.Find(i => i.Email == request.Email);
-
+            Account user = await repo.GetByEmail(request.Email, ct);
             if (user == null)
                 throw new UnauthorizedException(nameof(Account), nameof(Account.Email));
 
             bool isCorrectPassword = _hashService.Verify(request.Password, user.Password);
             if (!isCorrectPassword)
-                throw new NotFoundException(nameof(Account), nameof(Account.Password));
+                throw new UnauthorizedException(nameof(Account), nameof(Account.Password));
 
             (string accessToken, int accessExpiriesIn) = _jwtService.GenerateAccessToken(user);
             (string refreshToken, int refreshExpiriesIn) = _jwtService.GenerateRefreshToken();
 
+            user.RefreshTokens = user.RefreshTokens.Where(i => !i.IsExpired).ToList();
             user.RefreshTokens.Add(new RefreshTokenEntity
             {
                 Token = refreshToken,
                 ExpiresOn = _dateTime.Now.AddDays(refreshExpiriesIn)
             });
-
-            // TODO: remove old/used refresh tokens in the background
 
             repo.Update(user);
             await _uow.SaveChanges(ct);

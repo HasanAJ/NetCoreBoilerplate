@@ -31,7 +31,7 @@ namespace NetCoreBoilerplate.Application.User.ChangePassword
             if (!isOldPasswordCorrect)
                 throw new Exception("invalid old password");
 
-            var user = await _uow.GetRepository<Account>().Find(_context.Account.Id);
+            var user = await _uow.GetRepository<Account>().Find(_context.Account.Id, ct);
             user.Password = _hashService.HashPassword(request.NewPassword);
 
             user.DomainEvents.Add(new UserChangedPasswordEvent(user.Email));
