@@ -7,13 +7,8 @@ namespace NetCoreBoilerplate.Application.Common.Exceptions
         public override int StatusCode => (int)HttpStatusCode.BadRequest;
         public override string Code => "BAD_REQUEST";
 
-        public BadRequestException(string message)
-            : base(message)
-        {
-        }
-
-        public BadRequestException(string name, string key)
-            : this($"Entity '{name}' invalid ({key}) was found")
+        public BadRequestException(string key)
+            : base($"Invalid '{key}'")
         {
         }
     }

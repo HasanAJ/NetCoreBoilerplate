@@ -33,7 +33,6 @@ namespace NetCoreBoilerplate.Application.User.ChangePassword
 
             var user = await _uow.GetRepository<Account>().Find(_context.Account.Id, ct);
             user.Password = _hashService.HashPassword(request.NewPassword);
-
             user.DomainEvents.Add(new UserChangedPasswordEvent(user.Email));
 
             await _uow.SaveChanges();

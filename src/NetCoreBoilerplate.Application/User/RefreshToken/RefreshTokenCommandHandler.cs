@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualBasic;
 using NetCoreBoilerplate.Application.Common.Exceptions;
 using NetCoreBoilerplate.Application.Common.Interfaces.Database;
 using NetCoreBoilerplate.Application.Common.Interfaces.Services;
@@ -37,7 +36,7 @@ namespace NetCoreBoilerplate.Application.User.RefreshToken
 
             var currentRefreshToken = user.RefreshTokens.Single(x => x.Token == request.RefreshToken);
             if (currentRefreshToken.IsExpired)
-                throw new BadRequestException(nameof(RefreshToken), nameof(RefreshTokenEntity.Token));
+                throw new BadRequestException(nameof(RefreshTokenCommand.RefreshToken));
 
             (string accessToken, int accessExpiriesIn) = _jwtService.GenerateAccessToken(user);
             (string refreshToken, int refreshExpiriesIn) = _jwtService.GenerateRefreshToken();

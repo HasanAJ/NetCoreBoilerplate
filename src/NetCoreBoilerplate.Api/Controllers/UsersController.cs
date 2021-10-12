@@ -6,6 +6,7 @@ using NetCoreBoilerplate.Api.Controllers.Common;
 using NetCoreBoilerplate.Application.Common.Interfaces.Services;
 using NetCoreBoilerplate.Application.User.ChangePassword;
 using NetCoreBoilerplate.Application.User.RegisterUser;
+using NetCoreBoilerplate.Application.User.VerifyAccount;
 
 namespace NetCoreBoilerplate.Api.Controllers
 {
@@ -26,6 +27,13 @@ namespace NetCoreBoilerplate.Api.Controllers
         [Authorize]
         [HttpPut("password")]
         public async Task<ActionResult> ChangePassword(ChangePasswordCommand command, CancellationToken ct)
+        {
+            await _mediator.Send(command, ct);
+            return NoContent();
+        }
+
+        [HttpPost("verification")]
+        public async Task<ActionResult> VerifyUser(VerifyAccountCommand command, CancellationToken ct)
         {
             await _mediator.Send(command, ct);
             return NoContent();
